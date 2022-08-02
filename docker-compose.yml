@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+
+  # Imagem MariaDB para banco de dados
+  database:
+    container_name: db-server
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - "./var/lib/mysql"
+    ports:
+      - 3306:3306
+    networks:
+      - project
+
+  # Imagem PHP setada para Laravel
+  api:
+    container_name: api-server
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    volumes:
+      - "./src:/var/www/html"
+    ports:
+      - 8000:80
+    networks:
+      - project
+    depends_on:
+      - database
+
+# Declaração de rede 
+networks:
+  project:
+    name: "originals-net"
