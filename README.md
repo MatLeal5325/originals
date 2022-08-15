@@ -3,9 +3,9 @@
 ## O que será necessário para desenvolver:
 
 * **Docker Desktop** - para rodar o container com todas as ferramentas.
-* **VueJS - framework** JavaScript para o Front End da aplicação.
 * **Laravel Lumen** -  Como API da aplicação.
 * **MariaDB** - como banco de dados da aplicação.
+* **Gulp** - como plugin para SASS da aplicação.
 
 ## Como criar esse ambiente:
 
@@ -13,66 +13,90 @@ Criar os seguintes arquivos ->
 
 Antes de tudo, crie uma pasta principal com o nome do projeto no Disco Local;
 
-* pasta src (A qual terá as pastas do VueJS e Laravel Lumen)
+* pasta src (A qual terá as pastas do website e Laravel Lumen)
 * dockerfile (com os atributos da imagem)
 * docker-compose.yml (configurações do container)
 * .env (configurações do banco de dados)
 
 ## Feito isso os seguintes comandos devem ser realizados:
 
-### Instalando o Vuejs de forma local:
+### Instalando o Gulp
 
 ##### Primeiramente instalar o Nodejs na máquina de acordo com o link: 
 
 https://nodejs.org/en/download/
 
-Para isso, faça o teste na linha de comando:
+Para isso, faça os seguintes testes na linha de comando:
 
 `node -v`
+
+ou
+
+`node --version`
 
 E a mensagem que deve ser exibida é algo como:
 
         v16.15.1
+        
+Para testar a versão do npm
 
-Feito isso, sua máquina estará apta para instalar o Vue CLI para que os seguintes comandos sejam possíveis.
-
-Execute o comando:
-
-`npm install -g @vue/cli`
-
-ou
-
-`yarn global add @vue/cli`
-
-Para se certificar, faça o teste na linha de comando:
-
-`vue --version`
+`npm --version`
 
 E a mensagem que deve ser exibida é algo como:
 
-        @vue/cli 5.0.8
+        v5.6.0
+        
+Para testar a versão do npx
 
-Bom, já com o Vuejs instalado em sua máquina, está apto para instalar as ferramentas do framework em seu projeto.
+`npx --version`
 
-Dentro da pasta src (com o comando cd src) execute na linha de comando ->
+E a mensagem que deve ser exibida é algo como:
 
-`vue create client`
+        v9.7.1
 
-E configure o VueJS com essas features usando as setas, espaço e enter do teclado.:
 
-[x] Manually select features
+### Feito isso, sua máquina estará apta para instalar o Gulp CLI para que os seguintes comandos sejam possíveis.
 
-[x] Babel, Linter/formatter, CSS Pre-processors
+Esquema de pastas:
 
-[x] 3.x
 
-[x] Sass/SCSS
+        assets -> Fotos e SVGs
+        dest -> CSS, Javascripts e pasta com jQuery do Carrossel
+        scss -> SASS da página, dos botões, reset e pasta components com SASS do formulário
+        gulpfile.js -> configurações do plugin
+        index.htm -> Todo o HTML do site
+        
 
-[x] ESLint + Standard config
+Execute este comando dentro da dependência do projeto (app):
 
-[x] Lint on save
+`npm install --global gulp-cli`
 
-[x] In dedicated config files
+Para se certificar, faça o teste na linha de comando:
+
+`gulp --version`
+
+E a mensagem que deve ser exibida é algo como:
+
+        CLI version: 2.3.0
+        Local version: 4.0.2
+
+Bom, já com o Gulp instalado em sua máquina, está apto para instalar as ferramentas do Plugin em seu projeto.
+
+Dentro da pasta app, instalaremos o SASS ->
+
+`npm install sass gulp-sass --save-dev`
+
+Logo em seguida instalaremos o autoprefixer ->
+
+`npm install --save-dev gulp-autoprefixer`
+
+E por último, para que não seja necessário ficar compilando as mudanças no SCSS, é preciso iniciar a função gulp watch.
+
+Para isso, execute o seguinte comando ->
+
+`gulp watch`
+
+#### Todos esses comandos só foram possíveis porque o arquivo `gulpfile.js` já estava todo configurado para receber as funcionalidades descritas acima.
 
 ### Criando e subindo o container Docker
 
